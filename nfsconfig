@@ -1,0 +1,9 @@
+# network file system mounting point table
+# format configuration sample following
+# HOST_IP: NFS_NAME based on NFS_TABLE configuration
+#
+# Unnecessary line could be commented out using a prefix char `#`
+
+admin: t1, m1
+slave1: h1, h2, m1
+169.0.0.3: h1, h2, t1 

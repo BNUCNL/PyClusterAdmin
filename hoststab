@@ -1,0 +1,10 @@
+# hosts table
+# format configuration sample following
+# HOST_NAME      IP, IP1, ...
+#
+# Unnecessary line could be commented out using a prefix char `#`
+
+admin    169.0.0.1
+slave1   169.0.0.2
+slave2   169.0.0.3
+
