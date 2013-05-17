@@ -107,8 +107,22 @@ def read_nfstab(nfstab_file):
         info = [line.split() for line in info 
                 if not re.match(r'#', line) and line]
         tab = {}
+        hosts_tab = read_hoststab('hoststab')
         for item in info:
-            tab[item[0]] = [item[1], item[2]]
+            hd_addr = item[1].split(':')
+            if hd_addr[0] in hosts_tab:
+                hd_addr = ':'.join([hosts_tab[hd_addr[0]], hd_addr[1]])
+            elif hd_addr[0] in hosts_tab.values():
+                hd_addr = ':'.join(hd_addr)
+            elif checkip(hd_addr[0]):
+                print 'Warning: The IP address ' + hd_addr[0] + \
+                      ' does not in hosts list.'
+                hd_addr = ':'.join(hd_addr)
+            else:
+                print 'The hosts name ' + hd_addr[0] + \
+                      ' does not in hosts lists.'
+                return
+            tab[item[0]] = [hd_addr, item[2]]
         return tab
     except:
         print "Can not read file " + nfstab_file
@@ -120,11 +134,25 @@ def read_nfs_config(nfs_config_file):
         info = [line.strip() for line in info]
         info = [line.split(':') for line in info
                 if not re.match(r'#', line) and line]
-        info = dict(info)
-        for host in info:
-            temp = info[host].split(',')
-            info[host] = [item.strip() for item in temp]
-        return info
+        tab = {}
+        hosts_tab = read_hoststab('hoststab')
+        for item in info:
+            if item[0] in hosts_tab:
+                tab[hosts_tab[item[0]]] = item[1]
+            elif item[0] in hosts_tab.values():
+                tab[item[0]] = item[1]
+            elif checkip(item[0]):
+                print 'Warning: The IP address ' + item[0] + \
+                      ' does not in hosts list.'
+                tab[item[0]] = item[1]
+            else:
+                print 'The hosts name ' + item[0] + \
+                      ' does not in hosts list.'
+                return
+        for host in tab:
+            temp = tab[host].split(',')
+            tab[host] = [item.strip() for item in temp]
+        return tab
     except:
         print "Can not read file " + nfstab_file
         raise
@@ -183,3 +211,5 @@ def print_ssh_log(stdout, stderr):
     else:
         return 'normal', err
 
+def checkip(ip_addr):
+    return re.match('^(([01]?\d\d?|2[0-4]\d|25[0-5])\.){3}([01]?\d\d?|2[0-4]\d|25[0-5])$', ip_addr)

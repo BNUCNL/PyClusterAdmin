@@ -5,6 +5,6 @@
 # Unnecessary line could be commented out using a prefix char `#`
 
 h1        admin:/nfs/h1               /nfs/h1
-h2        admin:/nfs/h2               /nfs/h2
+j3        admin:/nfs/j3               /nfs/j3
 t1        slave1:/nfs/t1              /nfs/t1
 m1        169.0.0.3:/nfs/m1           /nfs/m1
