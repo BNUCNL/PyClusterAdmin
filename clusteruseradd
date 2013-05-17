@@ -1,0 +1,28 @@
+#! /bin/sh
+# Run this script to add a new user
+
+program=$0
+
+if [ $# != 2 ]; then
+        echo usage: ${program} "<user_name> <user_group>"
+        exit 1
+fi
+
+username=$1
+usergroup=$2
+homedir=/nfs/j3/userhome/${username}
+workingdir=/nfs/t3/workingshop/${username}
+bashrcfile=/nfs/s3/workingshop/swap/.bashrc
+
+useradd -d ${homedir} -g ${usergroup} -G ftpuser ${username}
+mkdir ${workingdir}
+chown ${username}:${usergroup} ${workingdir}
+chmod 700 ${workingdir}
+cd ${homedir}
+mv .bashrc .bashrc_bak
+cp ${bashrcfile} .
+chown ${username}:${usergroup} .bashrc
+su ${username} -c cd;ln -s ${workingdir} workingdir
+passwd ${username}
+/usr/lib64/yp/ypinit -m
+

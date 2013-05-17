@@ -1,0 +1,18 @@
+#! /usr/bin/env python
+# emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
+# vi: set ft=python sts=4 ts=4 sw=4 et:
+
+import os
+import util
+
+username = 'root'
+passwd = util.read_root_pwd('root_pwd')
+nfstab_file = 'nfstab'
+nfs_config_file = 'nfsconfig'
+
+host_list = util.read_nfs_config(nfs_config_file)
+nfs_list = util.read_nfstab(nfstab_file)
+
+for key in host_list:
+    for fs in host_list[key]:
+        util.ssh2mount(key, username, passwd, nfs_list[fs][0], nfs_list[fs][1])

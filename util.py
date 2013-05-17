@@ -213,3 +213,23 @@ def print_ssh_log(stdout, stderr):
 
 def checkip(ip_addr):
     return re.match('^(([01]?\d\d?|2[0-4]\d|25[0-5])\.){3}([01]?\d\d?|2[0-4]\d|25[0-5])$', ip_addr)
+
+def read_root_pwd(root_pwd_file):
+    info = open(root_pwd_file).readlines()
+    pwd = [item.strip().split(' = ') for item in info]
+    return pwd[0][1]
+
+def hostname():
+    sys = os.name
+    if sys == 'nt':
+        hostname = os.genenv('computername')
+        return hostname
+    elif sys == 'posix':
+        host = os.popen('echo $HOSTNAME')
+        try:
+            hostname = host.read()
+            return hostname[:-1]
+        finally:
+            host.close()
+    else:
+        return 'Unknown hostname'
