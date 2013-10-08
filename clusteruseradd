@@ -12,7 +12,7 @@ username=$1
 usergroup=$2
 homedir=/nfs/j3/userhome/${username}
 workingdir=/nfs/t3/workingshop/${username}
-bashrcfile=/nfs/s3/workingshop/swap/.bashrc
+bashrcfile=/usr/local/neurosoft/labtool/.bashrc
 
 useradd -d ${homedir} -g ${usergroup} -G ftpuser ${username}
 mkdir ${workingdir}
