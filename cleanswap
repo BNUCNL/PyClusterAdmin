@@ -1,0 +1,2 @@
+find /nfs/s3/workingshop/swap -type d -maxdepth 1 -ctime +90 | xargs rm -rf
+find /nfs/s3/workingshop/swap -type f -maxdepth 1 -ctime +90 | xargs rm -f
