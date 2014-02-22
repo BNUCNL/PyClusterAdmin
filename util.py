@@ -85,6 +85,19 @@ def ssh2poweroff(ip, username, passwd):
         raise
         ssh.close()
 
+def ssh2runcmd(ip, username, passwd, cmd):
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(ip, 22, username, passwd, timeout=5)
+        print 'connect to the host ' + ip + '......'
+        print 'Run command: ' + cmd
+        stdin, stdout, stderr = ssh.exec_command(cmd)
+        ssh.close()
+    except:
+        raise
+        ssh.close()
+
 def ssh2service(ip, username, passwd, service_name, service_status):
     try:
         ssh = paramiko.SSHClient()
