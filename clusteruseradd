@@ -12,7 +12,9 @@ username=$1
 usergroup=$2
 homedir=/nfs/j3/userhome/${username}
 workingdir=/nfs/t3/workingshop/${username}
-bashrcfile=/usr/local/neurosoft/labtool/.bashrc
+bashrcfile=/usr/local/neurosoft/labtool/config_files/bashrc
+matlabconfig=/usr/local/neurosoft/labtool/config_files/startup.m
+vncconfig=/usr/local/neurosoft/labtool/config_files/xstartup
 
 useradd -d ${homedir} -g ${usergroup} -G ftpuser ${username}
 mkdir ${workingdir}
@@ -22,6 +24,12 @@ cd ${homedir}
 mv .bashrc .bashrc_bak
 cp ${bashrcfile} .
 chown ${username}:${usergroup} .bashrc
+mkdir .vnc
+cp ${vncconfig} .vnc
+chown -R ${username}:${usergroup} .vnc
+mkdir matlab
+cp ${matlabconfig} matlab
+chown -R ${username}:${usergroup} matlab
 su ${username} -c cd;ln -s ${workingdir} workingdir
 passwd ${username}
 /usr/lib64/yp/ypinit -m
