@@ -17,6 +17,7 @@ matlabconfig=/usr/local/neurosoft/labtool/config_files/startup.m
 vncconfig=/usr/local/neurosoft/labtool/config_files/xstartup
 
 useradd -d ${homedir} -g ${usergroup} -G ftpuser ${username}
+smbpasswd -a {username}
 mkdir ${workingdir}
 chown ${username}:${usergroup} ${workingdir}
 chmod 700 ${workingdir}
