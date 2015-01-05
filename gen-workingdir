@@ -1,0 +1,21 @@
+#! /usr/bin/env python
+# emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
+# vi: set ft=python sts=4 ts=4 sw=4 et:
+
+import os
+
+user_list_file = r'user_list'
+user_list = open(user_list_file).readlines()
+user_list = [line.strip() for line in user_list]
+
+base_dir = r'/nfs/h1/workingshop'
+
+for user in user_list:
+    user_dir = os.path.join(base_dir, user)
+    if os.path.exists(user_dir):
+        continue
+    else:
+        os.system(' '.join(['mkdir', user_dir]))
+        os.system(' '.join(['chown', user + ':miner', user_dir]))
+        os.system(' '.join(['chmod', '700', user_dir]))
+
