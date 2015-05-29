@@ -1,0 +1,13 @@
+#! /bin/bash
+
+while echo "$1" | grep \- > /dev/null 2>&1
+do
+     shift
+done
+
+for i in "$@"
+do
+    time=`date +%m_%d_%H_%M_%S`
+    mv "$1" /nfs/h2/.trash/"$time"_"$i"
+done;
+
