@@ -8,6 +8,6 @@ done
 for i in "$@"
 do
     time=`date +%m_%d_%H_%M_%S`
-    mv "$1" /nfs/h2/.trash/"$time"_"$i"
+    mv "$1" /nfs/h2/.trash/"$time"_$(basename "$1")
 done;
 
