@@ -15,7 +15,7 @@ workingdir=/nfs/t3/workingshop/${username}
 bashrcfile=/usr/local/neurosoft/labtool/config_files/bashrc
 matlabconfig=/usr/local/neurosoft/labtool/config_files/startup.m
 vncconfig=/usr/local/neurosoft/labtool/config_files/xstartup
-anacondaconfig=/usr/local/neurosoft/labtool/config_files/license_academic_20140630053422.txt
+anacondaconfig=/usr/local/neurosoft/labtool/config_files/license_mkl_1452430725.txt
 
 useradd -d ${homedir} -g ${usergroup} -G ftpuser ${username}
 mkdir ${workingdir}
